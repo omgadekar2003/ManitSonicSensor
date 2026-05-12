@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>CodeRed Guardian | Manit's Sonic Sensor - Advanced Vehicle Safety System</title>
+    <title>CodeRed Guardian | Manit's Sonic Sensor - Advanced Cargo Truck Safety System</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,9 +21,192 @@
             overflow-x: hidden;
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        /* ========== INTRO ANIMATION ========== */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+            transform: translateY(0);
+        }
+
+        .intro-overlay.hide {
+            transform: translateY(-100%);
+        }
+
+        .truck-animation {
+            text-align: center;
+        }
+
+        .road {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            background: #2a2a3e;
+            overflow: hidden;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .road-lines {
+            position: absolute;
+            top: 70%;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                #ffcc00,
+                #ffcc00 30px,
+                transparent 30px,
+                transparent 60px
+            );
+            animation: moveLines 0.5s linear infinite;
+        }
+
+        @keyframes moveLines {
+            from { transform: translateX(0); }
+            to { transform: translateX(-60px); }
+        }
+
+        .truck {
+            position: absolute;
+            bottom: 35%;
+            left: -200px;
+            animation: driveTruck 1.2s ease-out forwards;
+        }
+
+        @keyframes driveTruck {
+            0% { left: -200px; }
+            100% { left: 50%; transform: translateX(-50%); }
+        }
+
+        .truck-body {
+            position: relative;
+            width: 180px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff1e3c, #cc0030);
+            border-radius: 10px;
+        }
+
+        .truck-cabin {
+            position: absolute;
+            left: -50px;
+            top: -20px;
+            width: 70px;
+            height: 60px;
+            background: linear-gradient(135deg, #0066ff, #0044cc);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .truck-window {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 50px;
+            height: 35px;
+            background: #4a9eff;
+            border-radius: 8px;
+        }
+
+        .wheel {
+            position: absolute;
+            bottom: -15px;
+            width: 30px;
+            height: 30px;
+            background: #1a1a2e;
+            border-radius: 50%;
+            border: 3px solid #ccc;
+        }
+
+        .wheel1 { left: 20px; }
+        .wheel2 { right: 20px; }
+        .wheel3 { left: 80px; }
+
+        .exhaust {
+            position: absolute;
+            right: -10px;
+            top: 20px;
+            width: 15px;
+            height: 15px;
+            background: #666;
+            border-radius: 5px;
+            animation: smoke 0.5s ease-out infinite;
+        }
+
+        @keyframes smoke {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2) translateX(10px); }
+        }
+
+        .smoke {
+            position: absolute;
+            right: -25px;
+            top: 20px;
+            width: 10px;
+            height: 10px;
+            background: rgba(200,200,200,0.6);
+            border-radius: 50%;
+            animation: smokeFloat 1s ease-out infinite;
+        }
+
+        @keyframes smokeFloat {
+            0% { opacity: 0.6; transform: translateX(0) scale(1); }
+            100% { opacity: 0; transform: translateX(20px) scale(2); }
+        }
+
+        .intro-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 40px;
+            background: linear-gradient(135deg, #ff1e3c, #0066ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff1e3c, #0066ff);
+            animation: load 2s ease-out forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* ========== MAIN WEBSITE STYLES ========== */
+        .main-content {
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         /* Custom Scrollbar */
@@ -72,13 +255,11 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
         }
 
         .logo p {
             font-size: 0.8rem;
             color: #8892b0;
-            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -108,10 +289,6 @@
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
         }
 
         /* Hero Section */
@@ -148,13 +325,6 @@
             font-size: 1.1rem;
             color: #a8b3cf;
             margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
         }
 
         .btn-primary {
@@ -165,9 +335,9 @@
             font-weight: 600;
             text-decoration: none;
             transition: 0.3s;
+            display: inline-block;
             border: none;
             cursor: pointer;
-            display: inline-block;
         }
 
         .btn-primary:hover {
@@ -184,11 +354,7 @@
             text-decoration: none;
             border: 2px solid #0066ff;
             transition: 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 102, 255, 0.1);
-            transform: translateY(-3px);
+            display: inline-block;
         }
 
         .hero-image {
@@ -198,7 +364,7 @@
             border: 1px solid rgba(255, 30, 60, 0.3);
         }
 
-        .hero-image img {
+        .hero-image img, .hero-image iframe {
             width: 100%;
             border-radius: 20px;
         }
@@ -228,10 +394,9 @@
             width: 80px;
             height: 3px;
             background: linear-gradient(90deg, #ff1e3c, #0066ff);
-            border-radius: 3px;
         }
 
-        /* Cards Grid */
+        /* Cards */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -257,17 +422,6 @@
         .card-icon {
             font-size: 3rem;
             margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .card p {
-            color: #a8b3cf;
-            line-height: 1.6;
         }
 
         /* Hardware Components */
@@ -299,18 +453,6 @@
             transform: translateX(5px);
         }
 
-        .component-item i {
-            font-size: 2rem;
-            color: #0066ff;
-            margin-bottom: 10px;
-        }
-
-        .component-item span {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
         /* Alert Demo */
         .alert-demo {
             background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
@@ -334,23 +476,11 @@
             border-radius: 50%;
             background: #2a2a3e;
             transition: 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .led-green.active {
-            background: #00ff66;
-            box-shadow: 0 0 30px #00ff66;
-        }
-
-        .led-red.active {
-            background: #ff1e3c;
-            box-shadow: 0 0 30px #ff1e3c;
-        }
-
-        .led-yellow.active {
-            background: #ffcc00;
-            box-shadow: 0 0 30px #ffcc00;
-        }
+        .led-green.active { background: #00ff66; box-shadow: 0 0 30px #00ff66; }
+        .led-yellow.active { background: #ffcc00; box-shadow: 0 0 30px #ffcc00; }
+        .led-red.active { background: #ff1e3c; box-shadow: 0 0 30px #ff1e3c; }
 
         .demo-buttons {
             display: flex;
@@ -366,30 +496,14 @@
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
             font-family: 'Poppins', sans-serif;
         }
 
-        .demo-btn.safe {
-            background: #00ff66;
-            color: #000;
-        }
+        .demo-btn.safe { background: #00ff66; color: #000; }
+        .demo-btn.caution { background: #ffcc00; color: #000; }
+        .demo-btn.danger { background: #ff1e3c; color: #fff; }
 
-        .demo-btn.caution {
-            background: #ffcc00;
-            color: #000;
-        }
-
-        .demo-btn.danger {
-            background: #ff1e3c;
-            color: #fff;
-        }
-
-        .demo-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Image Gallery */
+        /* Gallery */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -410,7 +524,7 @@
             border-color: #ff1e3c;
         }
 
-        .gallery-item img {
+        .gallery-item img, .gallery-item iframe {
             width: 100%;
             height: 250px;
             object-fit: cover;
@@ -422,7 +536,7 @@
             color: #a8b3cf;
         }
 
-        /* Contact Section */
+        /* Contact */
         .contact-card {
             background: linear-gradient(135deg, rgba(255, 30, 60, 0.1), rgba(0, 102, 255, 0.1));
             border-radius: 30px;
@@ -440,18 +554,6 @@
             margin-top: 30px;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: #0066ff;
-        }
-
-        /* Footer */
         footer {
             background: #0a0a0f;
             border-top: 1px solid rgba(255, 30, 60, 0.3);
@@ -474,18 +576,15 @@
             .hero-text h1 {
                 font-size: 2.5rem;
             }
+            .road {
+                width: 300px;
+            }
         }
 
         /* Animations */
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .fade-up {
@@ -495,194 +594,229 @@
 </head>
 <body>
 
-<nav>
-    <div class="container nav-container">
-        <div class="logo">
-            <h1>CodeRed Guardian</h1>
-            <p>Advanced Vehicle Safety Systems</p>
-        </div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#problem">Problem</a>
-            <a href="#hardware">Hardware</a>
-            <a href="#features">Features</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </div>
-</nav>
-
-<main>
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Manit's <span class="gradient-text">Sonic Sensor</span></h1>
-                <h1 style="font-size: 2rem; margin-top: -10px;">Smart System. Safe Roads.</h1>
-                <p>Advanced blind spot detection system for heavy vehicles using AI and multi-sensor fusion. Reduce accidents, save lives.</p>
-                <div class="hero-buttons">
-                    <a href="#alert-demo" class="btn-primary">Try Live Demo</a>
-                    <a href="#hardware" class="btn-secondary">View Components</a>
+<!-- INTRO ANIMATION -->
+<div class="intro-overlay" id="introOverlay">
+    <div class="truck-animation">
+        <div class="road">
+            <div class="road-lines"></div>
+            <div class="truck">
+                <div class="truck-body">
+                    <div class="truck-cabin">
+                        <div class="truck-window"></div>
+                    </div>
+                    <div class="wheel wheel1"></div>
+                    <div class="wheel wheel2"></div>
+                    <div class="wheel wheel3"></div>
+                    <div class="exhaust"></div>
+                    <div class="smoke"></div>
+                    <div class="smoke" style="animation-delay: 0.3s;"></div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://placehold.co/600x400/1a1a2e/0066ff?text=System+Prototype+Image" alt="System Prototype">
-            </div>
         </div>
-    </section>
-
-    <!-- Problem & Solution -->
-    <div class="container" id="problem">
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">🚨</div>
-                <h3>The Problem</h3>
-                <p>Large vehicles like trucks and buses have massive blind spots. Drivers cannot see pedestrians, cyclists, or vehicles nearby, leading to fatal accidents during turns and reversing.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">💡</div>
-                <h3>Our Solution</h3>
-                <p>Manit's Sonic Sensor uses ultrasonic sensors, AI camera, and real-time alerts to detect danger. Instant visual and audio warnings help drivers react immediately.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🏆</div>
-                <h3>Unique USP</h3>
-                <p>Low cost, easy installation on ANY old vehicle. AI + sensor fusion technology at affordable price. Retrofit existing fleet without expensive upgrades.</p>
-            </div>
+        <div class="intro-text">🚛 CodeRed Guardian</div>
+        <div class="intro-text" style="font-size: 1rem; margin-top: 10px;">Advanced Safety for Cargo Trucks</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
         </div>
     </div>
+</div>
 
-    <!-- Hardware Components -->
-    <div class="container" id="hardware">
-        <h2 class="section-title">Hardware <span>Components</span></h2>
-        <div class="components-wrapper">
-            <div class="components-grid">
-                <div class="component-item"><i class="fas fa-microchip"></i><span>Arduino Uno</span></div>
-                <div class="component-item"><i class="fas fa-ruler"></i><span>Ultrasonic Sensor</span></div>
-                <div class="component-item"><i class="fas fa-arrows-alt"></i><span>Accelerometer</span></div>
-                <div class="component-item"><i class="fas fa-hand-rock"></i><span>Force Sensor</span></div>
-                <div class="component-item"><i class="fas fa-cogs"></i><span>Stepper Motor</span></div>
-                <div class="component-item"><i class="fas fa-cube"></i><span>3D Printed Parts</span></div>
-                <div class="component-item"><i class="fas fa-lightbulb"></i><span>LEDs</span></div>
-                <div class="component-item"><i class="fas fa-bell"></i><span>Buzzer</span></div>
-                <div class="component-item"><i class="fas fa-vibration"></i><span>Vibration Motors</span></div>
-                <div class="component-item"><i class="fas fa-camera"></i><span>AI Camera</span></div>
+<!-- MAIN WEBSITE -->
+<div class="main-content">
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>CodeRed Guardian</h1>
+                <p>Cargo Truck Safety Systems</p>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#problem">Problem</a>
+                <a href="#hardware">Hardware</a>
+                <a href="#features">Features</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Features -->
-    <div class="container" id="features">
-        <h2 class="section-title">Key <span>Features</span></h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">📏</div>
-                <h3>Distance Measurement</h3>
-                <p>Ultrasonic sensors measure up to 4 meters with 1cm accuracy. Real-time distance tracking for multiple zones.</p>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Manit's <span class="gradient-text">Sonic Sensor</span></h1>
+                    <h1 style="font-size: 2rem;">For Heavy Cargo Trucks</h1>
+                    <p>Advanced blind spot detection system for cargo trucks using AI and multi-sensor fusion. Reduce accidents, protect lives on highways and city roads.</p>
+                    <div class="hero-buttons">
+                        <a href="#alert-demo" class="btn-primary">Try Live Demo</a>
+                        <a href="#hardware" class="btn-secondary">View Components</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <h3>AI Object Detection</h3>
-                <p>Camera identifies humans, vehicles, animals. Stepper motor rotates camera toward threat direction automatically.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔔</div>
-                <h3>Smart Alert System</h3>
-                <p>Green LED = Safe | Yellow LED = Caution | Red LED + Buzzer + Vibration = Danger — Multi-stage warnings.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📱</div>
-                <h3>Future Ready</h3>
-                <p>Mobile app integration, voice alerts, automatic braking system — upgradeable design for future enhancements.</p>
+        </section>
+
+        <!-- Problem & Solution -->
+        <div class="container" id="problem">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🚛</div>
+                    <h3>The Problem</h3>
+                    <p>Cargo trucks have massive blind spots, especially on the right side and rear. Drivers cannot see smaller vehicles, cyclists, or pedestrians, leading to fatal accidents during turns and lane changes.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💡</div>
+                    <h3>Our Solution</h3>
+                    <p>Manit's Sonic Sensor uses ultrasonic sensors, AI camera, and real-time alerts to detect danger around cargo trucks. Instant warnings help drivers react immediately.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏆</div>
+                    <h3>Unique USP</h3>
+                    <p>Low cost, easy installation on ANY cargo truck. AI + sensor fusion technology at affordable price. Retrofit existing fleet without expensive upgrades.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Interactive Alert Demo -->
-    <div class="container" id="alert-demo">
-        <div class="alert-demo">
-            <h2 style="margin-bottom: 20px;">Live Alert <span style="color: #0066ff;">Simulator</span></h2>
-            <p style="color: #a8b3cf; margin-bottom: 30px;">Test our alert system in real-time</p>
-            <div class="led-demo">
-                <div class="led-light led-green" id="greenLed"></div>
-                <div class="led-light led-yellow" id="yellowLed"></div>
-                <div class="led-light led-red" id="redLed"></div>
-            </div>
-            <div class="demo-buttons">
-                <button class="demo-btn safe" id="safeDemo">Safe Zone >100cm</button>
-                <button class="demo-btn caution" id="cautionDemo">Caution 40-100cm</button>
-                <button class="demo-btn danger" id="dangerDemo">Danger <40cm</button>
-            </div>
-            <div id="demoMessage" style="margin-top: 30px; font-size: 1.1rem; font-weight: 600;"></div>
-        </div>
-    </div>
-
-    <!-- Gallery -->
-    <div class="container" id="gallery">
-        <h2 class="section-title">Project <span>Gallery</span></h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/1a1a2e/ff1e3c?text=3D+Printed+Enclosure" alt="3D Printed Parts">
-                <div class="gallery-caption">Custom 3D Printed Enclosure</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/1a1a2e/0066ff?text=Sensor+Mounting" alt="Sensor Mounting">
-                <div class="gallery-caption">Ultrasonic & Force Sensor Setup</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/1a1a2e/ff1e3c?text=Vehicle+Testing" alt="Vehicle Testing">
-                <div class="gallery-caption">Real Vehicle Testing</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://placehold.co/600x400/1a1a2e/0066ff?text=AI+Tracking" alt="AI Tracking">
-                <div class="gallery-caption">AI Camera Object Tracking</div>
+        <!-- Hardware Components -->
+        <div class="container" id="hardware">
+            <h2 class="section-title">Hardware <span>Components</span></h2>
+            <div class="components-wrapper">
+                <div class="components-grid">
+                    <div class="component-item"><i class="fas fa-microchip"></i><span>Arduino Uno</span></div>
+                    <div class="component-item"><i class="fas fa-ruler"></i><span>Ultrasonic Sensor</span></div>
+                    <div class="component-item"><i class="fas fa-arrows-alt"></i><span>Accelerometer</span></div>
+                    <div class="component-item"><i class="fas fa-hand-rock"></i><span>Force Sensor</span></div>
+                    <div class="component-item"><i class="fas fa-cogs"></i><span>Stepper Motor</span></div>
+                    <div class="component-item"><i class="fas fa-cube"></i><span>3D Printed Parts</span></div>
+                    <div class="component-item"><i class="fas fa-lightbulb"></i><span>LEDs</span></div>
+                    <div class="component-item"><i class="fas fa-bell"></i><span>Buzzer</span></div>
+                    <div class="component-item"><i class="fas fa-vibration"></i><span>Vibration Motors</span></div>
+                    <div class="component-item"><i class="fas fa-camera"></i><span>AI Camera</span></div>
+                </div>
             </div>
         </div>
-        <p style="text-align: center; color: #8892b0; margin: 20px 0;">⚠️ Replace placeholder images with your actual project photos</p>
-    </div>
 
-    <!-- Target Users & Future -->
-    <div class="container">
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">👥</div>
-                <h3>Target Users</h3>
-                <p>Truck drivers, bus operators, transport companies, fleet owners, and old vehicle owners needing affordable safety solutions.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌍</div>
-                <h3>Impact</h3>
-                <p>Reduce road accidents, protect pedestrians and cyclists, improve driver awareness. Making Indian roads safer for everyone.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🚀</div>
-                <h3>Future Scope</h3>
-                <p>Mobile app dashboard, voice alerts, automatic emergency braking, integration with smart vehicles and fleet management systems.</p>
+        <!-- Features -->
+        <div class="container" id="features">
+            <h2 class="section-title">Key <span>Features</span></h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📏</div>
+                    <h3>Distance Measurement</h3>
+                    <p>Ultrasonic sensors measure up to 4 meters with 1cm accuracy. Real-time distance tracking for multiple zones around the truck.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>AI Object Detection</h3>
+                    <p>Camera identifies humans, vehicles, animals. Stepper motor rotates camera toward threat direction automatically.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔔</div>
+                    <h3>Smart Alert System</h3>
+                    <p>Green = Safe | Yellow = Caution | Red + Buzzer + Vibration = Danger — Multi-stage warnings for drivers.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Future Ready</h3>
+                    <p>Mobile app integration, voice alerts, automatic braking system — upgradeable design for future enhancements.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Contact -->
-    <div class="container" id="contact">
-        <div class="contact-card">
-            <i class="fas fa-envelope" style="font-size: 3rem; color: #0066ff; margin-bottom: 20px;"></i>
-            <h2>Contact <span style="color: #ff1e3c;">CodeRed Guardian</span></h2>
-            <div class="contact-info">
-                <div class="contact-item"><i class="fas fa-user"></i><span>Manit Sharma - Project Lead</span></div>
-                <div class="contact-item"><i class="fas fa-envelope"></i><span>manit@coderedguardian.com</span></div>
-                <div class="contact-item"><i class="fas fa-school"></i><span>DPS Hinjawadi</span></div>
+        <!-- Interactive Alert Demo -->
+        <div class="container" id="alert-demo">
+            <div class="alert-demo">
+                <h2 style="margin-bottom: 20px;">Live Alert <span style="color: #0066ff;">Simulator</span></h2>
+                <p style="color: #a8b3cf; margin-bottom: 30px;">Test our cargo truck safety alert system in real-time</p>
+                <div class="led-demo">
+                    <div class="led-light led-green" id="greenLed"></div>
+                    <div class="led-light led-yellow" id="yellowLed"></div>
+                    <div class="led-light led-red" id="redLed"></div>
+                </div>
+                <div class="demo-buttons">
+                    <button class="demo-btn safe" id="safeDemo">Safe Zone >100cm</button>
+                    <button class="demo-btn caution" id="cautionDemo">Caution 40-100cm</button>
+                    <button class="demo-btn danger" id="dangerDemo">Danger <40cm</button>
+                </div>
+                <div id="demoMessage" style="margin-top: 30px; font-size: 1.1rem; font-weight: 600;"></div>
             </div>
         </div>
-    </div>
-</main>
 
-<footer>
-    <div class="container">
-        <p>© 2026 CodeRed Guardian | Manit's Sonic Sensor — Smart Safety for Every Vehicle | Making Roads Safer</p>
-    </div>
-</footer>
+        <!-- Gallery -->
+        <div class="container" id="gallery">
+            <h2 class="section-title">Project <span>Gallery</span></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://placehold.co/600x400/1a1a2e/ff1e3c?text=Cargo+Truck+Installation" alt="Cargo Truck">
+                    <div class="gallery-caption">System Installed on Cargo Truck</div>
+                </div>
+                <div class="gallery-item">
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                    <div class="gallery-caption">Project Demo Video</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/600x400/1a1a2e/0066ff?text=3D+Printed+Parts" alt="3D Parts">
+                    <div class="gallery-caption">Custom 3D Printed Enclosure</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://placehold.co/600x400/1a1a2e/ff1e3c?text=Sensor+Setup" alt="Sensors">
+                    <div class="gallery-caption">Ultrasonic & Force Sensors</div>
+                </div>
+            </div>
+            <p style="text-align: center; color: #8892b0; margin: 20px 0;">⚠️ Replace placeholders with your actual project images and YouTube video ID</p>
+        </div>
+
+        <!-- Target Users -->
+        <div class="container">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Target Users</h3>
+                    <p>Cargo truck drivers, fleet owners, logistics companies, and transport businesses needing affordable safety solutions.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌍</div>
+                    <h3>Impact</h3>
+                    <p>Reduce cargo truck accidents, protect smaller vehicles and pedestrians, improve driver awareness on highways and city roads.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Future Scope</h3>
+                    <p>Mobile app dashboard, voice alerts, automatic emergency braking, integration with fleet management systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="container" id="contact">
+            <div class="contact-card">
+                <i class="fas fa-envelope" style="font-size: 3rem; color: #0066ff; margin-bottom: 20px;"></i>
+                <h2>Contact <span style="color: #ff1e3c;">CodeRed Guardian</span></h2>
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-user"></i><span>Manit Sharma - Project Lead</span></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><span>manit@coderedguardian.com</span></div>
+                    <div class="contact-item"><i class="fas fa-school"></i><span>DPS Hinjawadi</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 CodeRed Guardian | Manit's Sonic Sensor — Smart Safety for Cargo Trucks | Making Roads Safer</p>
+        </div>
+    </footer>
+</div>
 
 <script>
+    // Hide intro after animation and show main content
+    setTimeout(() => {
+        document.getElementById('introOverlay').classList.add('hide');
+    }, 2500);
+
     // Alert Demo Logic
     const greenLed = document.getElementById('greenLed');
     const yellowLed = document.getElementById('yellowLed');
@@ -698,25 +832,25 @@
     document.getElementById('safeDemo').addEventListener('click', () => {
         resetLights();
         greenLed.classList.add('active');
-        demoMessage.innerHTML = '🟢 SAFE MODE: No objects detected. Green LED ON.';
+        demoMessage.innerHTML = '🟢 SAFE MODE: No objects detected around truck. Green LED ON.';
         demoMessage.style.color = '#00ff66';
     });
 
     document.getElementById('cautionDemo').addEventListener('click', () => {
         resetLights();
         yellowLed.classList.add('active');
-        demoMessage.innerHTML = '⚠️ CAUTION MODE: Object approaching! Yellow LED + Vibration warning.';
+        demoMessage.innerHTML = '⚠️ CAUTION MODE: Object approaching truck! Yellow LED + Vibration warning.';
         demoMessage.style.color = '#ffcc00';
     });
 
     document.getElementById('dangerDemo').addEventListener('click', () => {
         resetLights();
         redLed.classList.add('active');
-        demoMessage.innerHTML = '🔴 DANGER MODE: Object very close! Red LED + Buzzer + Vibration motors activated!';
+        demoMessage.innerHTML = '🔴 DANGER MODE: Object very close to cargo truck! Red LED + Buzzer + Vibration motors activated!';
         demoMessage.style.color = '#ff1e3c';
     });
 
-    // Smooth scroll for nav links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -727,7 +861,7 @@
         });
     });
 
-    // Fade up animation on scroll
+    // Fade up animation
     const fadeElements = document.querySelectorAll('.card, .component-item, .gallery-item');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -738,6 +872,9 @@
     }, { threshold: 0.1 });
 
     fadeElements.forEach(el => observer.observe(el));
+
+    // Replace YouTube video ID - tell user to update
+    console.log('📹 To add your YouTube video: Replace "YOUR_VIDEO_ID" in both iframe src attributes with your actual video ID');
 </script>
 </body>
 </html>
